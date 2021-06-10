@@ -50,5 +50,19 @@ namespace WebAPIPedido.Controllers
             return Ok();
         }
 
+        [HttpDelete("{id:int}")]
+        public async Task<ActionResult> Delete(int id)
+        {
+            var existe = await context.Pedidos.AnyAsync(x => x.IdPedido == id);
+
+            if (!existe)
+            {
+                return NotFound();
+            }
+
+            context.Remove(new Pedido() { IdPedido = id });
+            await context.SaveChangesAsync();
+            return Ok();
+        }
     }
 }
