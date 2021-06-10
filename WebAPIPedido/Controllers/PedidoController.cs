@@ -14,7 +14,7 @@ namespace WebAPIPedido.Controllers
         [HttpGet]
         public ActionResult<List<Pedido>> Get()
         {
-            return new List<Pedido>()  { 
+            return new List<Pedido>()  {
                 new Pedido() { IdPedido = 1, Estado = "Pagado", Detalle = " Producto de Limpieza" },
                 new Pedido() { IdPedido = 2, Estado = "No Pagado", Detalle = " Producto de Cocina" } };
         }
