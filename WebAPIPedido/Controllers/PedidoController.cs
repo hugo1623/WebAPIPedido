@@ -32,5 +32,23 @@ namespace WebAPIPedido.Controllers
             return Ok();
         }
 
+        [HttpPut("{id:int}")]
+        public async Task<ActionResult> Put(Pedido pedido, int id)
+        {
+            if(pedido.IdPedido != id)
+            {
+                return BadRequest("El Id del Pedido no coincide con el id de la URL");
+            }
+            var existe = await context.Pedidos.AnyAsync(x => x.IdPedido == id);
+
+            if (!existe)
+            {
+                return NotFound();
+            }
+            context.Update(pedido);
+            await context.SaveChangesAsync();
+            return Ok();
+        }
+
     }
 }
