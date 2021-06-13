@@ -10,44 +10,44 @@ using WebAPIPedido.Entidades;
 namespace WebAPIPedido.Controllers
 {
     [ApiController]
-    [Route("api/pedidos")]
-    public class PedidoController: ControllerBase
+    [Route("api/detallepedidos")]
+    public class DetallePedidoController: ControllerBase
     {
         private readonly ApplicationDbContext context;
 
-        public PedidoController(ApplicationDbContext context)
+        public DetallePedidoController(ApplicationDbContext context)
         {
             this.context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Pedido>>> Get()
+        public async Task<ActionResult<List<DetallePedido>>> Get()
         {
-            return await context.Pedidos.ToListAsync();
+            return await context.DetallePedidos.ToListAsync();
         }
 
         [HttpPost]
-        public async Task<ActionResult> Post(Pedido pedido)
+        public async Task<ActionResult> Post(DetallePedido detallepedido)
         {
-            context.Add(pedido);
+            context.Add(detallepedido);
             await context.SaveChangesAsync();
             return Ok();
         }
 
         [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(Pedido pedido, int id)
+        public async Task<ActionResult> Put(DetallePedido detallepedido, int id)
         {
-            if(pedido.Id != id)
+            if (detallepedido.Id != id)
             {
                 return BadRequest("El Id del Pedido no coincide con el id de la URL");
             }
-            var existe = await context.Pedidos.AnyAsync(x => x.Id == id);
+            var existe = await context.DetallePedidos.AnyAsync(x => x.Id == id);
 
             if (!existe)
             {
                 return NotFound();
             }
-            context.Update(pedido);
+            context.Update(detallepedido);
             await context.SaveChangesAsync();
             return Ok();
         }
@@ -55,14 +55,14 @@ namespace WebAPIPedido.Controllers
         [HttpDelete("{id:int}")]
         public async Task<ActionResult> Delete(int id)
         {
-            var existe = await context.Pedidos.AnyAsync(x => x.Id == id);
+            var existe = await context.DetallePedidos.AnyAsync(x => x.Id == id);
 
             if (!existe)
             {
                 return NotFound();
             }
 
-            context.Remove(new Pedido() { Id = id });
+            context.Remove(new DetallePedido() { Id = id });
             await context.SaveChangesAsync();
             return Ok();
         }

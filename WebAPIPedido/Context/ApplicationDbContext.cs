@@ -14,5 +14,6 @@ namespace WebAPIPedido.Context
         }
 
         public DbSet<Pedido> Pedidos { get; set; }
+        public DbSet<DetallePedido> DetallePedidos { get; set; }
     }
 }
